@@ -6,24 +6,19 @@ import com.smilari.ejercitoargentino.entities.Servicio;
 import com.smilari.ejercitoargentino.repositories.SoldadoServicioRepository;
 import com.smilari.ejercitoargentino.repositories.ServicioRepository;
 import com.smilari.ejercitoargentino.repositories.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
 @Service
+@AllArgsConstructor
 public class SoldadoServicioService {
 
     private final SoldadoServicioRepository soldadoServicioRepository;
     private final UserRepository userEntityRepository;
     private final ServicioRepository servicioRepository;
-
-    @Autowired
-    public SoldadoServicioService (SoldadoServicioRepository soldadoServicioRepository, UserRepository userEntityRepository, ServicioRepository servicioRepository) {
-        this.soldadoServicioRepository = soldadoServicioRepository;
-        this.userEntityRepository = userEntityRepository;
-        this.servicioRepository = servicioRepository;
-    }
 
     public SoldadoServicio asignarServicio(Long userId, Long servicioId, LocalDate fechaRealizacion) {
         UserEntity user = userEntityRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));

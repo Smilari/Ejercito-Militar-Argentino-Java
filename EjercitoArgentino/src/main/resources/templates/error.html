@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/error.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Ocurrió un error</h1>
+    <p th:if="${status == 404}">Error 404: Página no encontrada.</p>
+    <p th:if="${status == 500}">Error 500: Error interno del servidor.</p>
+    <p th:if="${status == 403}">Error 403: Acceso denegado.</p>
+    <p th:if="${status != 404 && status != 500 && status != 403}">Lo sentimos, ocurrió un error inesperado.</p>
+    <p th:if="${message != null}" th:text="'Mensaje: ' + ${message}"></p>
+</div>
+</body>
+</html>
