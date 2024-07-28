@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Editar Compania</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Editar Compania</h1>
+    <form th:action="@{/templates/edit/compania}" th:object="${compania}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label for="actividad">Actividad:</label>
+            <input type="text" id="actividad" th:field="*{actividad}" />
+        </div>
+        <button type="submit">Actualizar</button>
+    </form>
+</div>
+</body>
+</html>

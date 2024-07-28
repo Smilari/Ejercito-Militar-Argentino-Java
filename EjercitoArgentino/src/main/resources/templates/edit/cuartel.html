@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Editar Cuartel</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Editar Cuartel</h1>
+    <form th:action="@{/templates/edit/cuartel}" th:object="${cuartel}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div>
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" th:field="*{name}" />
+        </div>
+        <div>
+            <label for="location">Ubicación:</label>
+            <input type="text" id="location" th:field="*{location}" />
+        </div>
+        <button type="submit">Actualizar</button>
+    </form>
+</div>
+</body>
+</html>

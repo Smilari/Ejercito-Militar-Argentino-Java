@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Crear Cuerpo de Ejercito</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Crear Cuerpo de Ejercito</h1>
+    <form th:action="@{/create/cuerpo}" th:object="${cuerpoEjercito}" method="post">
+        <div>
+            <label for="denominacion">Denominacion:</label>
+            <input type="text" id="denominacion" th:field="*{denominacion}" />
+        </div>
+        <button type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>

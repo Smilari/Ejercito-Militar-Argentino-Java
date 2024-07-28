@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Perfil de usuario</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+</head>
+<body>
+<nav>
+    <div class="logo-container">
+        <img th:src="@{/img/Escudo_del_Ejército_Argentino.png}" alt="Logo del Ejército Argentino" class="logo-img">
+        <span class="logo-text">Ejército Argentino</span>
+    </div>
+    <div class="links">
+        <a th:href="@{/home}">Inicio</a>
+        <!-- Links visibles solo para el Oficial -->
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/create}">Crear</a>
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/edit}">Editar</a>
+        <!-- Links visibles para Oficiales y Suboficiales -->
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/assign-services}">Asignar Servicios</a>
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/search}">Buscar Soldados</a>
+        <!-- Links visibles para todos los usuarios -->
+        <a th:href="@{/profile}">Mi Perfil</a>
+        <a th:href="@{/logout}">Cerrar Sesión</a>
+    </div>
+</nav>
+<div class="container">
+    <h1 class="text-center">Perfil de usuario</h1>
+    <div class="user-info">
+        <p><strong>Nombre de Usuario:</strong> <span th:text="${user.username}"></span></p>
+        <p><strong>Rol:</strong> <span th:text="${user.role}"></span></p>
+        <div th:if="${user.cuartel}">
+            <h2>Cuartel Asignado</h2>
+            <p><span th:text="${user.cuartel.name}"></span></p>
+        </div>
+        <div th:if="${user.compania}">
+            <h2>Compañía Asignada</h2>
+            <p><span th:text="${user.compania.actividad}"></span></p>
+        </div>
+        <div th:if="${user.cuerpoEjercito}">
+            <h2>Cuerpo de Ejército Asignado</h2>
+            <p><span th:text="${user.cuerpoEjercito.denominacion}"></span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

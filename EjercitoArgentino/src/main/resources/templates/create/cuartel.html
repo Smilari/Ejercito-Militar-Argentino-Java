@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Crear Cuartel</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Crear Cuartel</h1>
+    <form th:action="@{/create/cuartel}" th:object="${cuartel}" method="post">
+        <div>
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" th:field="*{name}" />
+        </div>
+        <div>
+            <label for="location">Ubicación:</label>
+            <input type="text" id="location" th:field="*{location}" />
+        </div>
+        <button type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>

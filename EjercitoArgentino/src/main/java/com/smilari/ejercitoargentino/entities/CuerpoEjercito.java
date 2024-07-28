@@ -15,9 +15,10 @@ import java.util.List;
 @Entity @Table(name = "cuerpos_ejercito")
 public class CuerpoEjercito {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String denominacion;
 
     @OneToMany(targetEntity = UserEntity.class, fetch = FetchType.LAZY, mappedBy = "cuerpoEjercito")

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <title>Login</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
@@ -19,7 +19,7 @@
         <button type="submit" class="btn btn-primary btn-block">Login</button>
     </form>
     <div th:if="${param.error}" class="alert alert-danger">
-        <p>Error: Correo o contraseña inválidos.</p>
+        <p>Error: Usuario o contraseña inválidos.</p>
     </div>
 </div>
 </body>

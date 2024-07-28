@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Crear Compañia</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Crear Compañia</h1>
+    <form th:action="@{/create/compania}" th:object="${compania}" method="post">
+        <div>
+            <label for="actividad">Actividad:</label>
+            <input type="text" id="actividad" th:field="*{actividad}" />
+        </div>
+        <button type="submit">Crear</button>
+    </form>
+</div>
+</body>
+</html>

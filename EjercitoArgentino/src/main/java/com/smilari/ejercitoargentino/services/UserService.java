@@ -4,8 +4,7 @@ import com.smilari.ejercitoargentino.entities.Role;
 import com.smilari.ejercitoargentino.entities.UserEntity;
 import com.smilari.ejercitoargentino.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,32 +18,32 @@ public class UserService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
-    public List<UserEntity> getAllUsers() {
+    public List<UserEntity> getAll() {
         return repository.findAll();
     }
 
-    public UserEntity getUserById(Long id) {
-        return repository.getReferenceById(id);
+    public UserEntity getById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
-    public Optional<UserEntity> getUserByName(String username) {
+    public Optional<UserEntity> getByName(String username) {
         return repository.findByUsername(username);
     }
 
-    public void saveUser(UserEntity userEntity) {
+    public void save(UserEntity userEntity) {
         repository.save(userEntity);
     }
 
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 
-    public long countUsers() {
+    public long count() {
         return repository.count();
     }
 
     public Boolean isAnyUserRegistered() {
-        return countUsers() > 0;
+        return count() > 0;
     }
 
     public void registerFirstUser(String username, String password) {
@@ -53,5 +52,23 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(Role.OFICIAL); // El primer usuario registrado será un oficial
         repository.save(user);
+    }
+
+    public UserEntity getLoggedUser() {
+        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+    
+    public String getLoggedUserRole() {
+        return getLoggedUser().getRole().name();
+    }
+
+    public boolean isSomeoneAuthenticated() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && authentication.isAuthenticated() &&
+                !authentication.getPrincipal().equals("anonymousUser");
+    }
+
+    public void logout() {
+        SecurityContextHolder.clearContext();
     }
 }

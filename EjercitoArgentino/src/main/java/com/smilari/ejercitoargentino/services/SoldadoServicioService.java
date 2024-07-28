@@ -7,7 +7,6 @@ import com.smilari.ejercitoargentino.repositories.SoldadoServicioRepository;
 import com.smilari.ejercitoargentino.repositories.ServicioRepository;
 import com.smilari.ejercitoargentino.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

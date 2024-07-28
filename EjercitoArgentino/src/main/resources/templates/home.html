@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Inicio - Ejército Argentino</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
+</head>
+<body>
+<nav>
+    <div class="logo-container">
+        <img th:src="@{/img/Escudo_del_Ejército_Argentino.png}" alt="Logo del Ejército Argentino" class="logo-img">
+        <span class="logo-text">Ejército Argentino</span>
+    </div>
+    <div class="links">
+        <a th:href="@{/home}" class="active">Inicio</a>
+        <!-- Links visibles solo para el Oficial -->
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/create}">Crear</a>
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/edit}">Editar</a>
+        <!-- Links visibles para Oficiales y Suboficiales -->
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/assign-services}">Asignar Servicios</a>
+        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/search}">Buscar Soldados</a>
+        <!-- Links visibles para todos los usuarios -->
+        <a th:href="@{/profile}">Mi Perfil</a>
+        <a th:href="@{/logout}">Cerrar Sesión</a>
+    </div>
+</nav>
+<section>
+    <h1>Bienvenido, <span th:text="${#authentication.principal.username}">Usuario</span></h1>
+    <!-- Contenido de la página -->
+</section>
+
+<script th:src="@{/js/navbar.js}"></script>
+</body>
+</html>

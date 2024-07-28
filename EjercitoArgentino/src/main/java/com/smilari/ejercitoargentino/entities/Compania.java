@@ -19,7 +19,7 @@ public class Compania {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String actividad;
 
     @OneToMany(targetEntity = UserEntity.class, fetch = FetchType.LAZY, mappedBy = "compania")

@@ -40,14 +40,12 @@ public class UserEntity implements UserDetails {
     @JoinColumn(name = "cuartel_id")
     private Cuartel cuartel;
 
-    @OneToMany(targetEntity = SoldadoServicio.class, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = SoldadoServicio.class, mappedBy = "user")
     private List<SoldadoServicio> soldadoServicios;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
