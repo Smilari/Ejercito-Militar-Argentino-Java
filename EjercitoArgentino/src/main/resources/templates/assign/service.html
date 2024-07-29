@@ -14,8 +14,7 @@
         <form method="post" th:action="@{'/services/assign/' + ${user.id}}">
             <label for="services">Servicios:</label>
             <select id="services" name="serviceIds" multiple>
-                <option th:each="service : ${services}" th:value="${service.id}"
-                        th:text="${service.descripcion}"></option>
+                <option th:each="service : ${services}" th:value="${service.id}" th:text="${service.descripcion}"></option>
             </select>
             <button type="submit">Asignar Servicios</button>
         </form>
@@ -24,7 +23,8 @@
         <ul>
             <li th:each="soldadoServicio : ${user.soldadoServicios}">
                 <span th:text="${soldadoServicio.servicio.descripcion}">Descripción del Servicio</span>
-                <form th:action="@{/services/unassign}" method="post" style="display:inline;">
+                <span th:if="${soldadoServicio.fechaRealizacion != null}" th:text="'Realizado el: ' + ${soldadoServicio.fechaRealizacion}" class="realizado-text"></span>
+                <form th:action="@{/services/unassign}" method="post">
                     <input type="hidden" name="soldadoServicioId" th:value="${soldadoServicio.id}"/>
                     <button type="submit">Desasignar</button>
                 </form>

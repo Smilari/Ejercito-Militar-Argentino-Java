@@ -24,7 +24,7 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/desloguear")
     public String logout() {
         userService.logout();
         return "logout";
