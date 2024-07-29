@@ -2,18 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <title>Crear Compañia</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/create-editForms.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
 </head>
 <body>
-<div class="container">
+<div th:insert="~{fragments/navbar :: navbar('create')}"></div>
+<main class="page-container">
     <h1>Crear Compañia</h1>
     <form th:action="@{/create/compania}" th:object="${compania}" method="post">
         <div>
-            <label for="actividad">Actividad:</label>
-            <input type="text" id="actividad" th:field="*{actividad}" />
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" th:field="*{name}" required/>
+        </div>
+        <div>
+            <label for="actividad">Actividad principal:</label>
+            <input type="text" id="actividad" th:field="*{actividad}" required/>
+        </div>
+        <div>
+            <label for="cuarteles">Cuarteles:</label>
+            <select id="cuarteles" name="cuartelesIds" multiple>
+                <option value="" disabled>Selecciona uno o más cuarteles</option>
+                <option th:each="cuartel : ${cuarteles}" th:value="${cuartel.id}" th:text="${cuartel.name}"></option>
+            </select>
         </div>
         <button type="submit">Crear</button>
     </form>
-</div>
+</main>
 </body>
 </html>

@@ -2,22 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <title>Crear Cuartel</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/create-editForms.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
 </head>
 <body>
-<div class="container">
+<div th:insert="~{fragments/navbar :: navbar('create')}"></div>
+<main class="page-container">
     <h1>Crear Cuartel</h1>
     <form th:action="@{/create/cuartel}" th:object="${cuartel}" method="post">
         <div>
             <label for="name">Nombre:</label>
-            <input type="text" id="name" th:field="*{name}" />
+            <input type="text" id="name" th:field="*{name}" required/>
         </div>
         <div>
             <label for="location">Ubicación:</label>
-            <input type="text" id="location" th:field="*{location}" />
+            <select id="location" th:field="*{location}" required>
+                <option value="" disabled selected>Selecciona una ubicación</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+                <option value="Catamarca">Catamarca</option>
+                <option value="Chaco">Chaco</option>
+                <option value="Chubut">Chubut</option>
+                <option value="Ciudad Autónoma de Buenos Aires">Ciudad Autónoma de Buenos Aires</option>
+                <option value="Córdoba">Córdoba</option>
+                <option value="Corrientes">Corrientes</option>
+                <option value="Entre Ríos">Entre Ríos</option>
+                <option value="Formosa">Formosa</option>
+                <option value="Jujuy">Jujuy</option>
+                <option value="La Pampa">La Pampa</option>
+                <option value="La Rioja">La Rioja</option>
+                <option value="Mendoza">Mendoza</option>
+                <option value="Misiones">Misiones</option>
+                <option value="Neuquén">Neuquén</option>
+                <option value="Río Negro">Río Negro</option>
+                <option value="Salta">Salta</option>
+                <option value="San Juan">San Juan</option>
+                <option value="San Luis">San Luis</option>
+                <option value="Santa Cruz">Santa Cruz</option>
+                <option value="Santa Fe">Santa Fe</option>
+                <option value="Santiago del Estero">Santiago del Estero</option>
+                <option value="Tierra del Fuego">Tierra del Fuego</option>
+                <option value="Tucumán">Tucumán</option>
+            </select>
         </div>
         <button type="submit">Crear</button>
     </form>
-</div>
+</main>
 </body>
 </html>

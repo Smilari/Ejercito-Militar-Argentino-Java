@@ -29,15 +29,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 // Permitir acceso público a los recursos estáticos
-                                .requestMatchers("/css/**", "/static/js/**", "/images/**").permitAll()
+                                .requestMatchers("/css/**", "/static/js/**", "/img/**").permitAll()
                                 // Configurar los endpoints públicos
                                 .requestMatchers("/login", "/register", "/logout").permitAll()
-
 
                                 // Configurar los endpoints privados
                                 .requestMatchers("/profile").hasAnyRole("OFICIAL", "SUBOFICIAL", "SOLDADO")
                                 .requestMatchers("/home").hasAnyRole("OFICIAL", "SUBOFICIAL", "SOLDADO")
                                 .requestMatchers("/create/**").hasRole("OFICIAL")
+                                .requestMatchers("/search/**").hasAnyRole("OFICIAL", "SUBOFICIAL")
+                                .requestMatchers("/edit/**").hasAnyRole("OFICIAL", "SUBOFICIAL")
 
                                 // Configurar el resto de los endpoints (no especificados)
                                 .anyRequest().authenticated()

@@ -1,5 +1,6 @@
 package com.smilari.ejercitoargentino.services;
 
+import com.smilari.ejercitoargentino.entities.Cuartel;
 import com.smilari.ejercitoargentino.repositories.CompaniaRepository;
 import com.smilari.ejercitoargentino.entities.Compania;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class CompaniaService {
 
     private final CompaniaRepository repository;
+    private final CuartelService cuartelService;
 
     public List<Compania> getAll() {
         return repository.findAll();
@@ -26,7 +28,19 @@ public class CompaniaService {
         return repository.findByActividad(actividad);
     }
 
-    public void save(Compania compania) {
+    public void save(Compania compania, List<Long> cuartelesIds) {
+        if (cuartelesIds != null && !cuartelesIds.isEmpty()) {
+            List<Cuartel> cuarteles = cuartelService.getAllByIds(cuartelesIds);
+            compania.setCuarteles(cuarteles);
+
+            for (Cuartel cuartel : compania.getCuarteles()) {
+                if (!cuartel.getCompanias().contains(compania)) {
+                    cuartel.getCompanias().add(compania);
+                    cuartelService.save(cuartel);
+                }
+            }
+        }
+
         repository.save(compania);
     }
 

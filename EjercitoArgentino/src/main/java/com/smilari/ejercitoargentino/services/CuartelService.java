@@ -37,4 +37,8 @@ public class CuartelService {
     public long count() {
         return repository.count();
     }
+
+    public List<Cuartel> getAllByIds(List<Long> cuartelesIds) {
+        return repository.findAllById(cuartelesIds);
+    }
 }

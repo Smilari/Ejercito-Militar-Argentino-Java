@@ -3,37 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crear - Ejército Argentino</title>
-    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <title>Crear | Ejército Argentino</title>
   <link rel="stylesheet" th:href="@{/css/create-edit.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
   <script th:src="@{/js/navbar.js}" defer></script>
 </head>
 <body>
-<nav>
-  <div class="logo-container">
-    <img th:src="@{/img/Escudo_del_Ejército_Argentino.png}" alt="Logo del Ejército Argentino" class="logo-img">
-    <span class="logo-text">Ejército Argentino</span>
-  </div>
-  <div class="links">
-    <a th:href="@{/home}">Inicio</a>
-    <!-- Links visibles solo para el Oficial -->
-    <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/create}" class="active">Crear</a>
-    <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/edit}">Editar</a>
-    <!-- Links visibles para Oficiales y Suboficiales -->
-    <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/assign-services}">Asignar Servicios</a>
-    <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/search}">Buscar Soldados</a>
-    <!-- Links visibles para todos los usuarios -->
-    <a th:href="@{/profile}">Mi Perfil</a>
-    <a th:href="@{/logout}">Cerrar Sesión</a>
-  </div>
-</nav>
+<div th:insert="~{fragments/navbar :: navbar('create')}"></div>
+
 <main class="page-container">
   <h1>Crear Entidades</h1>
   <div class="page-options">
     <a th:href="@{/create/user}" class="page-card">Crear Usuario</a>
-    <a th:href="@{/create/cuartel}" class="page-card">Crear Cuartel</a>
-    <a th:href="@{/create/compania}" class="page-card">Crear Compañía</a>
     <a th:href="@{/create/cuerpo}" class="page-card">Crear Cuerpo</a>
+    <a th:href="@{/create/compania}" class="page-card">Crear Compañía</a>
+    <a th:href="@{/create/cuartel}" class="page-card">Crear Cuartel</a>
   </div>
 </main>
 </body>

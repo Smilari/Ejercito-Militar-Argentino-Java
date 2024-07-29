@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Usuario | Ejército Argentino</title>
+    <link rel="stylesheet" th:href="@{/css/search.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
+</head>
+<body>
+<div th:insert="~{fragments/navbar :: navbar('search')}"></div>
+<main class="page-container">
+    <h1>Buscar Usuario</h1>
+    <form th:action="@{/search}" method="get">
+        <div class="form-group">
+            <label for="searchQuery">Buscar por ID o Nombre:</label>
+            <input type="text" id="searchQuery" name="searchQuery" placeholder="ID o Nombre de Usuario">
+        </div>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div class="result-container" th:if="${users != null}">
+        <h2>Resultados de la búsqueda</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Rango</th>
+                <th>Cuerpo de Ejército</th>
+                <th>Compañía</th>
+                <th>Cuartel</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">ID</td>
+                <td th:text="${user.username}">Nombre de Usuario</td>
+                <td th:text="${user.role}">Rol</td>
+                <td th:text="${user.cuerpoEjercito != null ? user.cuerpoEjercito.denominacion : 'N/A'}">Cuerpo de Ejército</td>
+                <td th:text="${user.compania != null ? user.compania.name : 'N/A'}">Compañía</td>
+                <td th:text="${user.cuartel != null ? user.cuartel.name : 'N/A'}">Cuartel</td>
+                <td>
+                    <a th:href="@{/edit/user/{id}(id=${user.id})}" class="edit-button">Editar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

@@ -71,4 +71,26 @@ public class UserService {
     public void logout() {
         SecurityContextHolder.clearContext();
     }
+
+    public List<UserEntity> searchUsers(String searchQuery) {
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            return repository.findAll();
+        }
+
+        try {
+            Long id = Long.parseLong(searchQuery);
+            return repository.findByIdOrUsernameContainingIgnoreCase(id, searchQuery);
+        } catch (NumberFormatException e) {
+            return repository.findByUsernameContainingIgnoreCase(searchQuery);
+        }
+    }
+
+    public UserEntity updatePassword(UserEntity user, String password) {
+        if (!password.isEmpty()){
+            user.setPassword(passwordEncoder.encode(password));
+        } else{
+            user.setPassword(getById(user.getId()).getPassword()); // Si no se cambia la contraseña, se mantiene la anterior
+        }
+        return user;
+    }
 }

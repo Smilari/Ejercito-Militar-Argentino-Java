@@ -23,24 +23,39 @@ public class EditController {
     private final CuartelService cuartelService;
     private final CompaniaService companiaService;
     private final CuerpoEjercitoService cuerpoEjercitoService;
-    private final PasswordEncoder passwordEncoder;
 
     @GetMapping({"/", ""})
     public String homeEdit() {
         return "edit";
     }
 
-    @GetMapping("/edit/user/{id}")
+    @GetMapping("/user/{id}")
     public String editUserForm(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getById(id));
+        model.addAttribute("cuerpos", cuerpoEjercitoService.getAll());
+        model.addAttribute("companias", companiaService.getAll());
+        model.addAttribute("cuarteles", cuartelService.getAll());
         return "edit/user";
     }
 
-    @PostMapping("/edit/user")
-    public String editUser(@RequestParam String password, @ModelAttribute UserEntity user) {
-        user.setPassword(passwordEncoder.encode(password));
+    @PostMapping("/user")
+    public String editUser(@RequestParam String password,
+                           @ModelAttribute UserEntity user) {
+
+        if (user.getCuerpoEjercito().getId() == null) {
+            user.setCuerpoEjercito(null);
+        }
+        if (user.getCompania().getId() == null) {
+            user.setCompania(null);
+        }
+        if(user.getCuartel().getId() == null) {
+            user.setCuartel(null);
+        }
+
+        user = userService.updatePassword(user, password);
+
         userService.save(user);
-        return "redirect:/edit";
+        return "redirect:/search";
     }
 
     @GetMapping("/edit/cuartel/{id}")
@@ -63,7 +78,7 @@ public class EditController {
 
     @PostMapping("/edit/compania")
     public String editCompania(@ModelAttribute Compania compania) {
-        companiaService.save(compania);
+//        companiaService.save(compania);
         return "redirect:/edit";
     }
 

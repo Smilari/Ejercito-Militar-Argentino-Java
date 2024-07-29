@@ -3,6 +3,7 @@ package com.smilari.ejercitoargentino.controllers;
 import com.smilari.ejercitoargentino.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -27,8 +28,9 @@ public class HomeController {
     }
 
     @GetMapping("/profile")
+    @Transactional
     public String mostrarPerfilUsuario(Model model) {
-        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("user", userService.getById(userService.getLoggedUser().getId()));
         return "profile";
     }
 }

@@ -1,44 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-    <title>Perfil de usuario</title>
+    <title>Profile | Ejército Argentino</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
 </head>
 <body>
-<nav>
-    <div class="logo-container">
-        <img th:src="@{/img/Escudo_del_Ejército_Argentino.png}" alt="Logo del Ejército Argentino" class="logo-img">
-        <span class="logo-text">Ejército Argentino</span>
-    </div>
-    <div class="links">
-        <a th:href="@{/home}">Inicio</a>
-        <!-- Links visibles solo para el Oficial -->
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/create}">Crear</a>
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/edit}">Editar</a>
-        <!-- Links visibles para Oficiales y Suboficiales -->
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/assign-services}">Asignar Servicios</a>
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/search}">Buscar Soldados</a>
-        <!-- Links visibles para todos los usuarios -->
-        <a th:href="@{/profile}">Mi Perfil</a>
-        <a th:href="@{/logout}">Cerrar Sesión</a>
-    </div>
-</nav>
-<div class="container">
-    <h1 class="text-center">Perfil de usuario</h1>
-    <div class="user-info">
-        <p><strong>Nombre de Usuario:</strong> <span th:text="${user.username}"></span></p>
-        <p><strong>Rol:</strong> <span th:text="${user.role}"></span></p>
-        <div th:if="${user.cuartel}">
-            <h2>Cuartel Asignado</h2>
-            <p><span th:text="${user.cuartel.name}"></span></p>
+<div th:insert="~{fragments/navbar :: navbar('profile')}"></div>
+<div class="profile-page">
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Perfil de Usuario</h1>
+            <img src="/img/profile-placeholder.png" alt="Imagen de perfil" class="profile-img">
         </div>
-        <div th:if="${user.compania}">
-            <h2>Compañía Asignada</h2>
-            <p><span th:text="${user.compania.actividad}"></span></p>
-        </div>
-        <div th:if="${user.cuerpoEjercito}">
-            <h2>Cuerpo de Ejército Asignado</h2>
-            <p><span th:text="${user.cuerpoEjercito.denominacion}"></span></p>
+        <div class="profile-details">
+            <p><strong>Nombre de Usuario:</strong> <span th:text="${user.username}">Username</span></p>
+            <p><strong>Rango:</strong> <span th:text="${user.getRole().name()}">Role</span></p>
+            <p><strong>Cuartel:</strong> <span th:text="${user.getCuartel() != null ? user.getCuartel().name : 'N/A'}">Cuartel</span></p>
+            <p><strong>Ubicación del Cuartel:</strong> <span th:text="${user.getCuartel() != null ? user.getCuartel().location : 'N/A'}">Location</span></p>
+            <p><strong>Compañía:</strong> <span th:text="${user.getCompania() != null ? user.getCompania().name : 'N/A'}">Compañía</span></p>
+            <p><strong>Actividad de la Compañía:</strong> <span th:text="${user.getCompania() != null ? user.getCompania().actividad : 'N/A'}">Actividad</span></p>
+            <p><strong>Cuerpo de Ejército:</strong> <span th:text="${user.getCuerpoEjercito() != null ? user.getCuerpoEjercito().denominacion : 'N/A'}">Cuerpo de Ejército</span></p>
         </div>
     </div>
 </div>

@@ -1,31 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-  <title>Crear Usuario</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/create-editForms.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
+    <script th:inline="javascript">
+        /* Script para manejar la dependencia entre Compania y Cuartel */
+        function updateCuarteles() {
+            var companiaId = document.getElementById("compania").value;
+            var cuartelOptions = document.getElementById("cuartel").options;
+
+            for (var i = 0; i < cuartelOptions.length; i++) {
+                var option = cuartelOptions[i];
+                if (option.getAttribute("data-compania-id").split(',').includes(companiaId) || option.value === "") {
+                    option.style.display = "block";
+                } else {
+                    option.style.display = "none";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
-<div class="container">
-  <h1>Crear Usuario</h1>
-  <form th:action="@{/create/user}" th:object="${user}" method="post">
-    <div>
-      <label for="username">Nombre de Usuario:</label>
-      <input type="text" id="username" th:field="*{username}" />
-    </div>
-    <div>
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" th:field="*{password}" />
-    </div>
-    <div>
-      <label for="role">Rango:</label>
-      <select id="role" th:field="*{role}">
-        <option value="OFICIAL">OFICIAL</option>
-        <option value="SUBOFICIAL">SUBOFICIAL</option>
-        <option value="SOLDADO">SOLDADO</option>
-      </select>
-    </div>
-    <button type="submit">Crear</button>
-  </form>
-</div>
+<div th:insert="~{fragments/navbar :: navbar('create')}"></div>
+<main class="page-container">
+    <h1>Crear Usuario</h1>
+    <form th:action="@{/create/user}" th:object="${user}" method="post">
+        <div>
+            <label for="username">Nombre de Usuario:</label>
+            <input type="text" id="username" th:field="*{username}" required/>
+        </div>
+        <div>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" th:field="*{password}" required/>
+        </div>
+        <div>
+            <label for="role">Rango:</label>
+            <select id="role" th:field="*{role}">
+                <option value="OFICIAL">OFICIAL</option>
+                <option value="SUBOFICIAL">SUBOFICIAL</option>
+                <option value="SOLDADO">SOLDADO</option>
+            </select>
+        </div>
+        <div>
+            <label for="cuerpoEjercito">Cuerpo de Ejército:</label>
+            <select id="cuerpoEjercito" th:field="*{cuerpoEjercito.id}">
+                <option value="">-- Seleccionar --</option>
+                <option th:each="cuerpo : ${cuerpos}" th:value="${cuerpo.id}" th:text="${cuerpo.denominacion}"></option>
+            </select>
+        </div>
+            <div>
+              <label for="compania">Compañía:</label>
+              <select id="compania" th:field="*{compania.id}" onchange="updateCuarteles()">
+                <option value="">-- Seleccionar --</option>
+                <option th:each="compania : ${companias}" th:value="${compania.id}" th:text="${compania.actividad}"></option>
+              </select>
+            </div>
+<!--            <div>-->
+<!--              <label for="cuartel">Cuartel:</label>-->
+<!--              <select id="cuartel" th:field="*{cuartel.id}">-->
+<!--                <option value="">&#45;&#45; Seleccionar &#45;&#45;</option>-->
+<!--                <option th:each="cuartel : ${cuarteles}" th:value="${cuartel.id}" th:text="${cuartel.name}" th:attr="data-compania-id=${cuartel.compania.id}"></option>-->
+<!--              </select>-->
+<!--            </div>-->
+        <button type="submit">Crear</button>
+    </form>
+</main>
 </body>
 </html>

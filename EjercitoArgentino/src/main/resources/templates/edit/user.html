@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
-    <title>Edit User</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/create-editForms.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
 </head>
 <body>
-<div class="container">
-    <h1>Edit User</h1>
-    <form th:action="@{/templates/edit/user}" th:object="${user}" method="post">
+<div th:insert="~{fragments/navbar :: navbar('edit')}"></div>
+<main class="page-container">
+    <h1>Editar Usuario</h1>
+    <form th:action="@{/edit/user}" th:object="${user}" method="post">
         <input type="hidden" th:field="*{id}" />
-        <div>
-            <label for="username">Username:</label>
+
+        <div class="form-group">
+            <label for="username">Nombre de Usuario:</label>
             <input type="text" id="username" th:field="*{username}" />
         </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" th:field="*{password}" />
+
+        <div class="form-group">
+            <label for="password">Nueva Contraseña (dejar en blanco para no cambiar):</label>
+            <input type="password" id="password" name="password" />
         </div>
-        <div>
-            <label for="role">Role:</label>
+
+        <div class="form-group">
+            <label for="role">Rango:</label>
             <select id="role" th:field="*{role}">
                 <option value="OFICIAL">OFICIAL</option>
                 <option value="SUBOFICIAL">SUBOFICIAL</option>
                 <option value="SOLDADO">SOLDADO</option>
             </select>
         </div>
-        <button type="submit">Update</button>
+
+        <div>
+            <label for="cuerpoEjercito">Cuerpo de Ejército:</label>
+            <select id="cuerpoEjercito" th:field="*{cuerpoEjercito.id}">
+                <option value="">-- Seleccionar --</option>
+                <option th:each="cuerpo : ${cuerpos}" th:value="${cuerpo.id}" th:text="${cuerpo.denominacion}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="compania">Compañía:</label>
+            <select id="compania" th:field="*{compania.id}">
+                <option value="">-- Seleccionar --</option>
+                <option th:each="compania : ${companias}" th:value="${compania.id}" th:text="${compania.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cuartel">Cuartel:</label>
+            <select id="cuartel" th:field="*{cuartel.id}">
+                <option value="">-- Seleccionar --</option>
+                <option th:each="cuartel : ${cuarteles}" th:value="${cuartel.id}" th:text="${cuartel.name}"></option>
+            </select>
+        </div>
+
+        <button type="submit">Guardar Cambios</button>
     </form>
-</div>
+</main>
 </body>
 </html>

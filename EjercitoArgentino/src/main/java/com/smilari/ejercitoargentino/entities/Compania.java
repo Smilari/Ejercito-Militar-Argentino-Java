@@ -20,6 +20,9 @@ public class Compania {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    private String name;
+
+    @Column(nullable = false)
     private String actividad;
 
     @OneToMany(targetEntity = UserEntity.class, fetch = FetchType.LAZY, mappedBy = "compania")

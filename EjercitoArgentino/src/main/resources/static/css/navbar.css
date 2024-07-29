@@ -17,6 +17,7 @@ nav {
     padding: 1rem 2rem;
     background-color: #eaeaea;
     transition: top 500ms ease-in-out;
+    z-index: 1000; /* Añadir esto para asegurarse de que el navbar está por encima del contenido */
 }
 
 nav.scroll-up,

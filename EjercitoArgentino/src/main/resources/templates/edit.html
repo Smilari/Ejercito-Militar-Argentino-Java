@@ -3,37 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar - Ejército Argentino</title>
-    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <title>Editar | Ejército Argentino</title>
     <link rel="stylesheet" th:href="@{/css/create-edit.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
     <script th:src="@{/js/navbar.js}" defer></script>
 </head>
 <body>
-<nav>
-    <div class="logo-container">
-        <img th:src="@{/img/Escudo_del_Ejército_Argentino.png}" alt="Logo del Ejército Argentino" class="logo-img">
-        <span class="logo-text">Ejército Argentino</span>
-    </div>
-    <div class="links">
-        <a th:href="@{/home}">Inicio</a>
-        <!-- Links visibles solo para el Oficial -->
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/create}">Crear</a>
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL'}" th:href="@{/edit}" class="active">Editar</a>
-        <!-- Links visibles para Oficiales y Suboficiales -->
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/assign-services}">Asignar Servicios</a>
-        <a th:if="${#authentication.principal.role.name() == 'OFICIAL' or #authentication.principal.role.name() == 'SUBOFICIAL'}" th:href="@{/search}">Buscar Soldados</a>
-        <!-- Links visibles para todos los usuarios -->
-        <a th:href="@{/profile}">Mi Perfil</a>
-        <a th:href="@{/logout}">Cerrar Sesión</a>
-    </div>
-</nav>
+<div th:insert="~{fragments/navbar :: navbar('edit')}"></div>
 <main class="page-container">
     <h1>Editar Entidades</h1>
     <div class="page-options">
         <a th:href="@{/edit/user}" class="page-card">Editar Usuario</a>
-        <a th:href="@{/edit/cuartel}" class="page-card">Editar Cuartel</a>
-        <a th:href="@{/edit/compania}" class="page-card">Editar Compañía</a>
         <a th:href="@{/edit/cuerpo}" class="page-card">Editar Cuerpo</a>
+        <a th:href="@{/edit/compania}" class="page-card">Editar Compañía</a>
+        <a th:href="@{/edit/cuartel}" class="page-card">Editar Cuartel</a>
     </div>
 </main>
 </body>
