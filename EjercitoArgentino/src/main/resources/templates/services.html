@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Crear Servicio</title>
+    <link rel="stylesheet" th:href="@{/css/create-editForms.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <script th:src="@{/js/navbar.js}" defer></script>
+</head>
+<body>
+<div th:insert="~{fragments/navbar :: navbar('services')}"></div>
+<main class="page-container">
+    <h1>Crear Servicio</h1>
+    <form th:action="@{/services}" th:object="${service}" method="post">
+        <div>
+            <label for="descripcion">Descripcion:</label>
+            <input type="text" id="descripcion" th:field="*{descripcion}" required/>
+        </div>
+        <button type="submit">Crear</button>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Asignar Servicios | Ejército Argentino</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/assign-service.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+    <script type="text/javascript" th:src="@{/js/navbar.js}" defer></script>
+</head>
+<body>
+<div th:insert="~{fragments/navbar :: navbar('')}"></div>
+<div class="service-page">
+    <div class="container">
+        <h1>Asignar Servicios a <span th:text="${user.username}">Usuario</span></h1>
+        <form method="post" th:action="@{'/services/assign/' + ${user.id}}">
+            <label for="services">Servicios:</label>
+            <select id="services" name="serviceIds" multiple>
+                <option th:each="service : ${services}" th:value="${service.id}"
+                        th:text="${service.descripcion}"></option>
+            </select>
+            <button type="submit">Asignar Servicios</button>
+        </form>
+
+        <h2>Servicios Asignados</h2>
+        <ul>
+            <li th:each="soldadoServicio : ${user.soldadoServicios}">
+                <span th:text="${soldadoServicio.servicio.descripcion}">Descripción del Servicio</span>
+                <form th:action="@{/services/unassign}" method="post" style="display:inline;">
+                    <input type="hidden" name="soldadoServicioId" th:value="${soldadoServicio.id}"/>
+                    <button type="submit">Desasignar</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

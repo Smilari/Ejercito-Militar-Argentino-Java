@@ -44,6 +44,7 @@
                 <td th:text="${user.cuartel != null ? user.cuartel.name : 'N/A'}">Cuartel</td>
                 <td>
                     <a th:href="@{/edit/user/{id}(id=${user.id})}" class="edit-button">Editar</a>
+                    <a th:href="@{/services/assign/{id}(id=${user.id})}" class="assign-button">Asignar Servicios</a>
                 </td>
             </tr>
             </tbody>

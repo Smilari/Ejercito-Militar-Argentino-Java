@@ -23,6 +23,25 @@
             <p><strong>Actividad de la Compañía:</strong> <span th:text="${user.getCompania() != null ? user.getCompania().actividad : 'N/A'}">Actividad</span></p>
             <p><strong>Cuerpo de Ejército:</strong> <span th:text="${user.getCuerpoEjercito() != null ? user.getCuerpoEjercito().denominacion : 'N/A'}">Cuerpo de Ejército</span></p>
         </div>
+
+        <!-- Agregado de servicios asignados -->
+        <div th:if="${user.role.name() == 'SOLDADO'}">
+            <h2>Servicios Asignados</h2>
+            <div class="services-container">
+                <div th:each="soldadoServicio : ${serviciosAsignados}">
+                    <p th:text="${soldadoServicio.servicio.descripcion}">Servicio Descripción</p>
+                    <form th:if="${soldadoServicio.fechaRealizacion == null}"
+                          th:action="@{/profile/completarServicio}"
+                          method="post">
+                        <input type="hidden" name="soldadoServicioId" th:value="${soldadoServicio.id}">
+                        <button type="submit" class="btn-realizar" th:text="'Marcar como Realizado'">Marcar como Realizado</button>
+                    </form>
+                    <span class="realizado-text" th:if="${soldadoServicio.fechaRealizacion != null}"
+                          th:text="'Realizado el: ' + ${soldadoServicio.fechaRealizacion}"></span>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

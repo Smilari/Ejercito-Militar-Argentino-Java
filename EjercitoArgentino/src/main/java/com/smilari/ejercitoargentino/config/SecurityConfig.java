@@ -39,6 +39,7 @@ public class SecurityConfig {
                                 .requestMatchers("/create/**").hasRole("OFICIAL")
                                 .requestMatchers("/search/**").hasAnyRole("OFICIAL", "SUBOFICIAL")
                                 .requestMatchers("/edit/**").hasAnyRole("OFICIAL", "SUBOFICIAL")
+                                .requestMatchers("/services/**").hasAnyRole("OFICIAL", "SUBOFICIAL")
 
                                 // Configurar el resto de los endpoints (no especificados)
                                 .anyRequest().authenticated()

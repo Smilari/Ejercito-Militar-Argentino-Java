@@ -26,6 +26,6 @@ public class SoldadoServicio {
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
 
-    @Column(nullable = false, name = "fecha_realizacion", columnDefinition = "DATE")
+    @Column(name = "fecha_realizacion", columnDefinition = "DATE")
     private LocalDate fechaRealizacion;
 }

@@ -48,3 +48,48 @@
 .profile-details span {
     color: #000;
 }
+
+.services-container {
+    margin-top: 20px;
+}
+
+.services-container div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.services-container p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.btn-realizar {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-realizar[disabled] {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.realizado-text {
+    font-size: 14px;
+    color: #28a745;
+}
+
+.profile-container h2 {
+    margin-top: 30px;
+    font-size: 24px;
+    color: #333;
+    border-top: 2px solid #eaeaea;
+    padding-top: 10px;
+}

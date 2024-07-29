@@ -92,3 +92,17 @@ th {
 .edit-button:hover {
     background-color: #218838;
 }
+
+.assign-button {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #fff;
+    background-color: #e82d2d;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.assign-button:hover {
+    background-color: #c82323;
+}
