@@ -1,4 +1,4 @@
-package com.smilari.ejercitoargentino;
+package test.java.com.smilari.ejercitoargentino;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
